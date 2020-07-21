@@ -10,7 +10,8 @@
 }
 
 body {
-  height: 100vh
+  height: 100vh;
+  
 }
 
 main {
@@ -22,6 +23,7 @@ main {
   display: block;
   width: 100%;
   margin: auto;
+  padding: 50px;
 }
 
 .chartcontainer {
@@ -31,6 +33,10 @@ main {
 
 .VictoryContainer svg g {
   padding-top: 400px
+}
+
+.VictoryContainer {
+  color: white;
 }
 
 .axis {

@@ -1,9 +1,8 @@
 import React from 'react';
+import Slicers from './components/Slicers'
 import './App.css';
-import Nav from './components/Nav'
-import Mainchart from './components/Mainchart'
-import StudentEvaluations from './components/StudentEvaluation'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import ChartContainer from './components/ChartContainer'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 
 class Container extends React.Component {
@@ -11,7 +10,11 @@ class Container extends React.Component {
     super();
     this.state = {
       evaluations: [{ student: "", assignment: "", moeilijk: "", leuk: "" }],
-      isLoading: true
+      isLoading: true,
+      slicers: {
+        showMoeilijk: true,
+        showLeuk: true
+      },
     }
   }
 
@@ -20,6 +23,15 @@ class Container extends React.Component {
     this.setState({
       evaluations: jsonData.evaluations
     }, this.toggleLoading())
+  }
+
+  toggleCategories = (category) => {
+    this.setState({
+      slicers: {
+        ...this.state.slicers,
+        [category]: !this.state.slicers[category]
+      }
+    })
   }
 
   toggleLoading = () => {
@@ -33,7 +45,6 @@ class Container extends React.Component {
   }
 
   render() {
-
     const studentList = [...new Set(this.state.evaluations.map(evaluation => {
       return evaluation.student
     }))]
@@ -44,41 +55,29 @@ class Container extends React.Component {
       )
     })
 
-    const displayItems = this.state.evaluations.map(evali => {
-      return (<div><p>{evali.student}, {evali.assignment}, {evali.leuk}, {evali.moeilijk}</p></div>)
-    })
+
     if (this.state.isLoading) {
       return (<h1>Loading...</h1>)
     } else {
 
       return (
         <div className="maincontainer">
-
           <Router>
             <div className="navcontainer">
               <ul className="navmenu">
                 <Link to="/"><li>All data</li></Link>
                 {studentListDisplay}
               </ul>
+              <Slicers slicers={this.state.slicers} toggleCategories={this.toggleCategories} />
             </div>
             <main>
-              <Route path="/:StudentEvaluations"
+              <Route path={["/:StudentEvaluations", "/"]}
                 render={(matchProps) => {
                   return (
-                    <StudentEvaluations {...this.state} {...matchProps} />
+                    <ChartContainer {...this.state} {...matchProps} />
                   )
                 }} />
-              <Route exact path="/"
-                render={(props) => {
-                  return (
-                    <Mainchart {...this.state} />
-                  )
-                }}
-
-              />
             </main>
-
-
           </Router>
         </div>
       )
