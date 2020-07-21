@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.maincontainer {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+}
+
+body {
+  height: 100vh
+}
+
+main {
+  grid-column: 2/2;
+}
+
+.navcontainer {
+  grid-column: 1/1;
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+
+.chartcontainer {
+  width: 80%;
+  margin: 100px auto;
+}
+
+.VictoryContainer svg g {
+  padding-top: 400px
+}
+
+.axis {
+  text-align: left
+}
+
+.pagetitle {
+  text-align: center;
+}
+
+ul {
+  margin: 50px;
+}
