@@ -5,6 +5,7 @@ import { VictoryBar, VictoryGroup, VictoryChart, VictoryAxis, VictoryTheme, Vict
 
 const ChartDisplay = (props) => {
 
+    const studentName = props.params;
 
     const moeilijkBarStyle = props.slicers.showMoeilijk ? { data: { fill: "#2DD881" } } : { data: { fillOpacity: 0 } }
     const leukBarStyle = props.slicers.showLeuk ? { data: { fill: "#8447FF" } } : { data: { fillOpacity: 0 } }
@@ -13,11 +14,12 @@ const ChartDisplay = (props) => {
         <div className="chartcontainer">
 
             <h1 className="pagetitle">Student evaluations</h1>
-            <h5>Winc FEO 6</h5>
+            <h5>Winc FEO 6 - {studentName}</h5>
             <VictoryChart
-                animate={{ duration: 200 }}
+                // animate={{ duration: 200 }}
+
                 sortKey="assignment"
-                standalone={true} domainPadding={{ x: 20 }} height={500} width={1200} containerComponent={
+                standalone={true} domainPadding={{ x: 20 }} height={300} width={1200} containerComponent={
                     <VictoryZoomContainer allowZoom={true} allowPan={true} zoomDomain={{ x: [0, 25] }} zoomDimension="x" />
                 }
             >

@@ -13,7 +13,15 @@ class Container extends React.Component {
       isLoading: true,
       slicers: {
         showMoeilijk: true,
-        showLeuk: true
+        showLeuk: true,
+        showWeeks: {
+          week1: true,
+          week2: true,
+          week3: true,
+          week4: true,
+          week5: true,
+          week6: true
+        }
       },
     }
   }
@@ -34,6 +42,18 @@ class Container extends React.Component {
     })
   }
 
+  toggleWeeks = (week) => {
+    this.setState({
+      slicers: {
+        ...this.state.slicers,
+        showWeeks: {
+          ...this.state.slicers.showWeeks,
+          [week]: !this.state.slicers.showWeeks[week],
+        }
+      }
+    })
+  }
+
   toggleLoading = () => {
     this.setState({
       isLoading: !this.state.isLoading
@@ -45,6 +65,7 @@ class Container extends React.Component {
   }
 
   render() {
+
     const studentList = [...new Set(this.state.evaluations.map(evaluation => {
       return evaluation.student
     }))]
@@ -68,7 +89,7 @@ class Container extends React.Component {
                 <Link to="/"><li>All data</li></Link>
                 {studentListDisplay}
               </ul>
-              <Slicers slicers={this.state.slicers} toggleCategories={this.toggleCategories} />
+              <Slicers slicers={this.state.slicers} toggleCategories={this.toggleCategories} toggleWeeks={this.toggleWeeks} />
             </div>
             <main>
               <Route path={["/:StudentEvaluations", "/"]}

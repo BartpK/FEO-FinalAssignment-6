@@ -2,11 +2,10 @@ import React from 'react'
 import ChartDisplay from './ChartDisplay'
 
 
-
-
 const ChartContainer = (props) => {
+    const weekSelect = props.slicers.showWeeks
 
-    console.log(props)
+
     let filteredData;
 
     if (props.match.url === "/") {
@@ -18,9 +17,42 @@ const ChartContainer = (props) => {
         })
     }
 
-    const assignmentList = [...new Set(filteredData.map(evaluation => {
+    let assignmentList = [...new Set(filteredData.map(evaluation => {
         return evaluation.assignment
-    }))]
+    }))].sort()
+
+    if (!weekSelect.week1) {
+        assignmentList = assignmentList.filter(assignment => {
+            return !assignment.includes('W1')
+        })
+    }
+    if (!weekSelect.week2) {
+        assignmentList = assignmentList.filter(assignment => {
+            return !assignment.includes('W2')
+        })
+    }
+    if (!weekSelect.week3) {
+        assignmentList = assignmentList.filter(assignment => {
+            return !assignment.includes('W3')
+        })
+    }
+    if (!weekSelect.week4) {
+        assignmentList = assignmentList.filter(assignment => {
+            return !assignment.includes('W4')
+        })
+    }
+    if (!weekSelect.week5) {
+        assignmentList = assignmentList.filter(assignment => {
+            return !assignment.includes('W5')
+        })
+    }
+    if (!weekSelect.week6) {
+        assignmentList = assignmentList.filter(assignment => {
+            return !assignment.includes('W6')
+        })
+    }
+
+    console.log("assignmentlist: ", assignmentList)
 
     const getAverageScore = (assignment, category) => {
         const filteredAssignments = filteredData.filter(evaluation => {
@@ -35,6 +67,22 @@ const ChartContainer = (props) => {
         return averageScore
     }
 
+    const getAverageScoreOfWeek = (query, category) => {
+        const selectedEvaluations = filteredData.filter(evaluation => {
+            return evaluation.assignment.includes(query)
+        }).map(evaluation => {
+            return evaluation[category]
+        })
+        const averageScore = selectedEvaluations.reduce((total, num) => {
+            return parseInt(total) + parseInt(num)
+        }) / selectedEvaluations.length
+
+
+        return averageScore
+    }
+
+    console.log(getAverageScoreOfWeek('W1', 'moeilijk'))
+
     const formattedData = assignmentList.map(assignment => {
         return {
             assignment: assignment,
@@ -42,6 +90,47 @@ const ChartContainer = (props) => {
             leuk: getAverageScore(assignment, 'leuk')
         }
     })
+
+    const weeksArray = [
+        {
+            week: "Week 1",
+            query: "W1"
+        },
+        {
+            week: "Week 2",
+            query: "W2"
+        },
+        {
+            week: "Week 3",
+            query: "W3"
+        },
+        {
+            week: "Week 4",
+            query: "W4"
+        },
+        {
+            week: "Week 5",
+            query: "W5"
+        },
+        {
+            week: "Week 6",
+            query: "W6"
+        }
+    ]
+
+
+
+    const weeklyAverages = weeksArray.map(currentWeek => {
+        return {
+            week: currentWeek.week,
+            moeilijk: getAverageScoreOfWeek(currentWeek.query, 'moeilijk'),
+            leuk: getAverageScoreOfWeek(currentWeek.query, 'leuk'),
+        }
+    })
+
+    console.log(weeklyAverages)
+
+
 
 
 
@@ -64,7 +153,7 @@ const ChartContainer = (props) => {
 
 
     return (
-        <ChartDisplay formattedData={formattedData} slicers={props.slicers} />
+        <ChartDisplay formattedData={formattedData} slicers={props.slicers} params={props.match.params.StudentEvaluations} />
         // <div className="chartcontainer">
 
         //     <h1 className="pagetitle">Student evaluations</h1>
