@@ -52,7 +52,6 @@ const ChartContainer = (props) => {
         })
     }
 
-    console.log("assignmentlist: ", assignmentList)
 
     const getAverageScore = (assignment, category) => {
         const filteredAssignments = filteredData.filter(evaluation => {
@@ -81,66 +80,70 @@ const ChartContainer = (props) => {
         return averageScore
     }
 
-    console.log(getAverageScoreOfWeek('W1', 'moeilijk'))
 
     const formattedData = assignmentList.map(assignment => {
         return {
             assignment: assignment,
-            moeilijk: getAverageScore(assignment, 'moeilijk'),
-            leuk: getAverageScore(assignment, 'leuk')
+            difficult: getAverageScore(assignment, 'difficult'),
+            fun: getAverageScore(assignment, 'fun')
         }
     })
 
-    const weeksArray = [
-        {
+    const checkForFilteredWeeks = (query) => {
+        const assignmentsByWeek =
+            assignmentList.filter(assignment => {
+                return assignment.includes(query)
+            })
+        return assignmentsByWeek.length > 0;
+    }
+
+
+    const weeksArray = [];
+
+    if (checkForFilteredWeeks('W1')) {
+        weeksArray.push({
             week: "Week 1",
             query: "W1"
-        },
-        {
+        })
+    }
+    if (checkForFilteredWeeks('W2')) {
+        weeksArray.push({
             week: "Week 2",
             query: "W2"
-        },
-        {
+        })
+    }
+    if (checkForFilteredWeeks('W3')) {
+        weeksArray.push({
             week: "Week 3",
             query: "W3"
-        },
-        {
+        })
+    }
+    if (checkForFilteredWeeks('W4')) {
+        weeksArray.push({
             week: "Week 4",
             query: "W4"
-        },
-        {
+        })
+    }
+    if (checkForFilteredWeeks('W5')) {
+        weeksArray.push({
             week: "Week 5",
             query: "W5"
-        },
-        {
+        })
+    }
+    if (checkForFilteredWeeks('W6')) {
+        weeksArray.push({
             week: "Week 6",
             query: "W6"
-        }
-    ]
-
-
+        })
+    }
 
     const weeklyAverages = weeksArray.map(currentWeek => {
         return {
             week: currentWeek.week,
-            moeilijk: getAverageScoreOfWeek(currentWeek.query, 'moeilijk'),
-            leuk: getAverageScoreOfWeek(currentWeek.query, 'leuk'),
+            difficult: getAverageScoreOfWeek(currentWeek.query, 'difficult'),
+            fun: getAverageScoreOfWeek(currentWeek.query, 'fun'),
         }
     })
-
-    console.log(weeklyAverages)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -153,7 +156,7 @@ const ChartContainer = (props) => {
 
 
     return (
-        <ChartDisplay formattedData={formattedData} slicers={props.slicers} params={props.match.params.StudentEvaluations} />
+        <ChartDisplay formattedData={formattedData} weeklyAverages={weeklyAverages} slicers={props.slicers} params={props.match.params.StudentEvaluations} />
         // <div className="chartcontainer">
 
         //     <h1 className="pagetitle">Student evaluations</h1>

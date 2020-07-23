@@ -5,8 +5,8 @@ const Slicers = (props) => {
         <div className="slicercontainer">
             <div className="slicer">
                 <p>Show which data</p>
-                <label><input type="checkbox" checked={props.slicers.showMoeilijk} onChange={() => { props.toggleCategories('showMoeilijk') }} />Show 'Moeilijk'</label><br />
-                <label><input type="checkbox" checked={props.slicers.showLeuk} onChange={() => { props.toggleCategories('showLeuk') }} />Show 'Leuk'</label>
+                <label><input type="checkbox" checked={props.slicers.showDifficult} onChange={() => { props.toggleCategories('showDifficult') }} />Show 'Difficult'</label><br />
+                <label><input type="checkbox" checked={props.slicers.showFun} onChange={() => { props.toggleCategories('showFun') }} />Show 'Fun'</label>
             </div >
             <div className="slicer">
                 <p>Show which weeks</p>

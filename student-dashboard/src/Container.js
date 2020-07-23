@@ -9,11 +9,11 @@ class Container extends React.Component {
   constructor() {
     super();
     this.state = {
-      evaluations: [{ student: "", assignment: "", moeilijk: "", leuk: "" }],
+      evaluations: [{ student: "", assignment: "", difficult: "", fun: "" }],
       isLoading: true,
       slicers: {
-        showMoeilijk: true,
-        showLeuk: true,
+        showDifficult: true,
+        showFun: true,
         showWeeks: {
           week1: true,
           week2: true,

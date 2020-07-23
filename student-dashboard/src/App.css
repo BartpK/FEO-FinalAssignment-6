@@ -4,6 +4,10 @@
   font-family: sans-serif;
 }
 
+h5 {
+  text-align: center;
+}
+
 .maincontainer {
   display: grid;
   grid-template-columns: 1fr 9fr;
@@ -16,6 +20,7 @@ body {
 
 main {
   grid-column: 2/2;
+  padding: 75px 120px 75px 50px;
 }
 
 .navcontainer {
