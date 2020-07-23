@@ -14,7 +14,7 @@ const fontSize = 12;
 const padding = 8;
 const baseProps = {
     width: 1200,
-    height: 250,
+    height: 230,
     padding: 50
 };
 // *

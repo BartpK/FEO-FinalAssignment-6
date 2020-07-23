@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Slicers from './components/Slicers'
-import StudentFilter from "./components/StudentFilter";
+import StudentFilter from "./components/StudentFilter"
 import ChartContainer from './components/ChartContainer'
+import SortData from './components/SortData'
 import './App.css';
 
 class Container extends React.Component {
@@ -11,6 +12,11 @@ class Container extends React.Component {
     this.state = {
       evaluations: [{ student: "", assignment: "", difficult: "", fun: "" }],
       isLoading: true,
+      sortBy: {
+        dimension: "assignment",
+        direction: "asc"
+        //acs or desc, assignment, fun, difficult
+      },
       slicers: {
         showDifficult: true,
         showFun: true,
@@ -60,12 +66,20 @@ class Container extends React.Component {
     })
   }
 
+  updateSortDirection = (dimension, direction) => {
+    this.setState({
+      sortBy: {
+        dimension: dimension,
+        direction: direction
+      }
+    })
+  }
+
   componentDidMount() {
     this.loadData();
   }
 
   render() {
-
     if (this.state.isLoading) {
       return (<h1>Loading...</h1>)
     } else {
@@ -77,6 +91,8 @@ class Container extends React.Component {
               return (
                 <div className="maincontainer">
                   <div className="navcontainer">
+                    <SortData updateSortDirection={this.updateSortDirection} />
+
                     <StudentFilter
                       {...this.state}
                       {...matchProps} />
