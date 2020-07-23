@@ -3,6 +3,7 @@ import Slicers from './components/Slicers'
 import './App.css';
 import ChartContainer from './components/ChartContainer'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import NavMenu from "./components/NavMenu"
 
 
 class Container extends React.Component {
@@ -66,13 +67,17 @@ class Container extends React.Component {
 
   render() {
 
+
+
     const studentList = [...new Set(this.state.evaluations.map(evaluation => {
       return evaluation.student
     }))]
 
     const studentListDisplay = studentList.map(student => {
       return (
-        <Link key={student} to={student} > <li>{student}</li></Link>
+        <Link key={student} to={student} >
+
+          <li><i class="fas fa-caret-right"></i>  {student}</li></Link>
       )
     })
 
@@ -85,8 +90,9 @@ class Container extends React.Component {
         <div className="maincontainer">
           <Router>
             <div className="navcontainer">
+
               <ul className="navmenu">
-                <Link to="/"><li>All data</li></Link>
+                <Link to="/"><li><i class="fas fa-caret-right"></i> All data</li></Link>
                 {studentListDisplay}
               </ul>
               <Slicers slicers={this.state.slicers} toggleCategories={this.toggleCategories} toggleWeeks={this.toggleWeeks} />
@@ -95,7 +101,10 @@ class Container extends React.Component {
               <Route path={["/:StudentEvaluations", "/"]}
                 render={(matchProps) => {
                   return (
-                    <ChartContainer {...this.state} {...matchProps} />
+                    <div>
+                      {/* <NavMenu {...this.state} {...matchProps} /> */}
+                      <ChartContainer {...this.state} {...matchProps} />
+                    </div>
                   )
                 }} />
             </main>
