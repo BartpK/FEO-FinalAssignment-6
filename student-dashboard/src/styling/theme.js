@@ -1,27 +1,8 @@
 import { assign } from "lodash";
 
-// *
-// * Colors
-// *
-const yellow200 = "#FFF59D";
-const deepOrange600 = "#F4511E";
-const lime300 = "#DCE775";
-const lightGreen500 = "#8BC34A";
-const teal700 = "#00796B";
-const cyan900 = "#006064";
-const colors = [deepOrange600, yellow200, lime300, lightGreen500, teal700, cyan900];
-const blueGrey50 = "#ECEFF1";
-const blueGrey300 = "#90A4AE";
-const blueGrey700 = "#455A64";
-const grey900 = "#212121";
-
-
-// own colors
-const white = "#ffffff";
 const gray = "#d6d7db";
-const purple = "#a888df";
-const blue = "#00bcd6";
-// *
+const lightgray = "rgb(214, 215, 219, 0.4)"
+
 // * Typography
 // *
 const sansSerif = "'Helvetica Neue', 'Helvetica', sans-serif";
@@ -58,17 +39,6 @@ const strokeLinecap = "round";
 const strokeLinejoin = "round";
 
 export default {
-    // area: assign(
-    //     {
-    //         style: {
-    //             data: {
-    //                 fill: grey900
-    //             },
-    //             labels: baseLabelStyles
-    //         }
-    //     },
-    //     baseProps
-    // ),
     axis: assign(
         {
             style: {
@@ -84,8 +54,8 @@ export default {
                     stroke: "transparent"
                 }),
                 grid: {
-                    fill: white,
-                    stroke: gray,
+
+                    stroke: lightgray,
                     strokeDasharray,
                     strokeLinecap,
                     strokeLinejoin,
@@ -106,15 +76,6 @@ export default {
         },
         baseProps
     ),
-    // polarDependentAxis: assign({
-    //     style: {
-    //         ticks: {
-    //             fill: "transparent",
-    //             size: 1,
-    //             stroke: "transparent"
-    //         }
-    //     }
-    // }),
     bar: assign(
         {
             style: {
@@ -127,76 +88,11 @@ export default {
         },
         baseProps
     ),
-    // boxplot: assign(
-    //     {
-    //         style: {
-    //             max: { padding, stroke: blueGrey700, strokeWidth: 1 },
-    //             maxLabels: assign({}, baseLabelStyles, { padding: 3 }),
-    //             median: { padding, stroke: blueGrey700, strokeWidth: 1 },
-    //             medianLabels: assign({}, baseLabelStyles, { padding: 3 }),
-    //             min: { padding, stroke: blueGrey700, strokeWidth: 1 },
-    //             minLabels: assign({}, baseLabelStyles, { padding: 3 }),
-    //             q1: { padding, fill: blueGrey700 },
-    //             q1Labels: assign({}, baseLabelStyles, { padding: 3 }),
-    //             q3: { padding, fill: blueGrey700 },
-    //             q3Labels: assign({}, baseLabelStyles, { padding: 3 })
-    //         },
-    //         boxWidth: 20
-    //     },
-    //     baseProps
-    // ),
-    // candlestick: assign(
-    //     {
-    //         style: {
-    //             data: {
-    //                 stroke: blueGrey700
-    //             },
-    //             labels: assign({}, baseLabelStyles, { padding: 5 })
-    //         },
-    //         candleColors: {
-    //             positive: "#ffffff",
-    //             negative: blueGrey700
-    //         }
-    //     },
-    //     baseProps
-    // ),
     chart: baseProps,
-    errorbar: assign(
-        {
-            borderWidth: 8,
-            style: {
-                data: {
-                    fill: "transparent",
-                    opacity: 1,
-                    stroke: blueGrey700,
-                    strokeWidth: 2
-                },
-                labels: baseLabelStyles
-            }
-        },
-        baseProps
-    ),
-    group: assign(
-        {
-            colorScale: colors
-        },
-        baseProps
-    ),
-    histogram: assign(
-        {
-            style: {
-                data: {
-                    fill: blueGrey700,
-                    stroke: grey900,
-                    strokeWidth: 2
-                },
-                labels: baseLabelStyles
-            }
-        },
-        baseProps
-    ),
+
+
     legend: {
-        colorScale: colors,
+
         gutter: 10,
         orientation: "horizontal",
         titleOrientation: "top",
@@ -214,7 +110,6 @@ export default {
                 data: {
                     fill: "transparent",
                     opacity: 1,
-                    stroke: blueGrey700,
                     strokeWidth: 3
                 },
                 labels: baseLabelStyles
@@ -222,69 +117,6 @@ export default {
         },
         baseProps
     ),
-    // pie: assign(
-    //     {
-    //         colorScale: colors,
-    //         style: {
-    //             data: {
-    //                 padding,
-    //                 stroke: blueGrey50,
-    //                 strokeWidth: 1
-    //             },
-    //             labels: assign({}, baseLabelStyles, { padding: 20 })
-    //         }
-    //     },
-    //     baseProps
-    // ),
-    // scatter: assign(
-    //     {
-    //         style: {
-    //             data: {
-    //                 fill: blueGrey700,
-    //                 opacity: 1,
-    //                 stroke: "transparent",
-    //                 strokeWidth: 0
-    //             },
-    //             labels: baseLabelStyles
-    //         }
-    //     },
-    //     baseProps
-    // ),
-    // stack: assign(
-    //     {
-    //         colorScale: colors
-    //     },
-    //     baseProps
-    // ),
-    // tooltip: {
-    //     style: assign({}, baseLabelStyles, { padding: 0, pointerEvents: "none" }),
-    //     flyoutStyle: {
-    //         stroke: grey900,
-    //         strokeWidth: 1,
-    //         fill: "#f0f0f0",
-    //         pointerEvents: "none"
-    //     },
-    //     flyoutPadding: 5,
-    //     cornerRadius: 5,
-    //     pointerLength: 10
-    // },
-    // voronoi: assign(
-    //     {
-    //         style: {
-    //             data: {
-    //                 fill: "transparent",
-    //                 stroke: "transparent",
-    //                 strokeWidth: 0
-    //             },
-    //             labels: assign({}, baseLabelStyles, { padding: 5, pointerEvents: "none" }),
-    //             flyout: {
-    //                 stroke: grey900,
-    //                 strokeWidth: 1,
-    //                 fill: "#f0f0f0",
-    //                 pointerEvents: "none"
-    //             }
-    //         }
-    //     },
-    //     baseProps
-    // )
 };
+
+

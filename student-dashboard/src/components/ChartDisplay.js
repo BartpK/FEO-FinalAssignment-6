@@ -1,6 +1,7 @@
 import React from 'react'
-import { VictoryBar, VictoryGroup, VictoryChart, VictoryAxis, VictoryTheme, VictoryZoomContainer, VictoryLine, VictoryLegend } from 'victory'
+import { VictoryBar, VictoryGroup, VictoryChart, VictoryAxis, VictoryZoomContainer, VictoryLine, VictoryLegend } from 'victory'
 import bartsTheme from "../styling/theme"
+import animations from "../styling/animations"
 
 
 const ChartDisplay = (props) => {
@@ -22,6 +23,7 @@ const ChartDisplay = (props) => {
             <div className="barchartcontainer">
 
                 <h2>Average ratings by assignment</h2>
+                <p>Drag or zoom to see all data</p>
                 <VictoryChart
 
 
@@ -30,7 +32,7 @@ const ChartDisplay = (props) => {
 
                     sortKey="assignment"
                     standalone={true} domainPadding={{ x: 20 }} height={250} width={1200} containerComponent={
-                        <VictoryZoomContainer allowZoom={true} allowPan={true} zoomDomain={{ x: [0, 25] }} zoomDimension="x" />
+                        <VictoryZoomContainer allowZoom={true} allowPan={true} zoomDomain={{ x: [0.5, 29.5] }} zoomDimension="x" />
                     }
 
                 >
@@ -43,14 +45,16 @@ const ChartDisplay = (props) => {
                             { name: "Fun", symbol: { fill: blue } }
                         ]}
                     />
-                    <VictoryGroup offset={12}>
+                    <VictoryGroup offset={8}>
 
                         <VictoryBar
-                            barWidth={10}
+                            animate={animations.difficult}
+                            barWidth={7}
                             style={difficultBarStyle} data={props.formattedData} x="assignment" y="difficult" />
 
                         <VictoryBar
-                            barWidth={10}
+                            animate={animations.fun}
+                            barWidth={7}
                             style={funBarStyle} data={props.formattedData} x="assignment" y="fun" />
 
                     </VictoryGroup>
@@ -92,8 +96,12 @@ const ChartDisplay = (props) => {
                             { name: "Fun", symbol: { fill: blue } }
                         ]}
                     />
-                    <VictoryLine style={difficultLineStyle} data={props.weeklyAverages} x="week" y="difficult" />
-                    <VictoryLine style={funLineStyle} data={props.weeklyAverages} x="week" y="fun" />
+                    <VictoryLine
+                        animate={animations.difficult}
+                        style={difficultLineStyle} data={props.weeklyAverages} x="week" y="difficult" />
+                    <VictoryLine
+                        animate={animations.fun}
+                        style={funLineStyle} data={props.weeklyAverages} x="week" y="fun" />
                     <VictoryAxis
                         className="axis"
                         // offsetY={10}
