@@ -1,10 +1,9 @@
 import React from 'react';
-import Slicers from './components/Slicers'
-import './App.css';
-import ChartContainer from './components/ChartContainer'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import NavMenu from "./components/NavMenu"
-
+import Slicers from './components/Slicers'
+import StudentFilter from "./components/StudentFilter";
+import ChartContainer from './components/ChartContainer'
+import './App.css';
 
 class Container extends React.Component {
   constructor() {
@@ -67,34 +66,34 @@ class Container extends React.Component {
 
   render() {
 
-
-
-
-
-
     if (this.state.isLoading) {
       return (<h1>Loading...</h1>)
     } else {
-
       return (
-
         <Router>
-          <Route path={["/:StudentEvaluations", "/"]}
+          <Route
+            path={["/:StudentEvaluations", "/"]}
             render={(matchProps) => {
               return (
                 <div className="maincontainer">
                   <div className="navcontainer">
-                    <NavMenu {...this.state} {...matchProps} />
-                    <Slicers slicers={this.state.slicers} toggleCategories={this.toggleCategories} toggleWeeks={this.toggleWeeks} />
+                    <StudentFilter
+                      {...this.state}
+                      {...matchProps} />
+                    <Slicers
+                      slicers={this.state.slicers}
+                      toggleCategories={this.toggleCategories}
+                      toggleWeeks={this.toggleWeeks} />
                   </div>
                   <main>
-                    <ChartContainer {...this.state} {...matchProps} />
+                    <ChartContainer
+                      {...this.state}
+                      {...matchProps} />
                   </main>
                 </div>
               )
             }} />
         </Router>
-
       )
     }
   }

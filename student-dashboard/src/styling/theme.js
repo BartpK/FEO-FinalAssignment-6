@@ -13,8 +13,8 @@ const fontSize = 12;
 // *
 const padding = 8;
 const baseProps = {
-    width: 350,
-    height: 350,
+    width: 1200,
+    height: 250,
     padding: 50
 };
 // *
@@ -93,12 +93,14 @@ export default {
 
     legend: {
 
+        x: 1000,
+        y: 0,
         gutter: 10,
         orientation: "horizontal",
         titleOrientation: "top",
         style: {
             data: {
-                type: "circle"
+                type: "circle",
             },
             labels: baseLabelStyles,
             title: assign({}, baseLabelStyles, { padding: 5 })
