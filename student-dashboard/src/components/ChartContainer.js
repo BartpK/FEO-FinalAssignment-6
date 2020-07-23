@@ -19,7 +19,8 @@ const ChartContainer = (props) => {
 
     let assignmentList = [...new Set(filteredData.map(evaluation => {
         return evaluation.assignment
-    }))].sort()
+    }))]
+    // .sort()
 
     if (!weekSelect.week1) {
         assignmentList = assignmentList.filter(assignment => {
@@ -77,7 +78,7 @@ const ChartContainer = (props) => {
         return averageScore
     }
 
-    const formattedData = assignmentList.map(assignment => {
+    let formattedData = assignmentList.map(assignment => {
         return {
             assignment: assignment,
             difficult: getAverageScoreByAssignment(assignment, 'difficult'),
@@ -132,6 +133,7 @@ const ChartContainer = (props) => {
         })
     }
 
+
     const weeklyAverages = weeksArray.map(currentWeek => {
         return {
             week: currentWeek.week,
@@ -139,6 +141,21 @@ const ChartContainer = (props) => {
             fun: getAverageScoreOfWeek(currentWeek.query, 'fun'),
         }
     })
+
+    const sortData = (inputData, dimension, direction) => {
+
+        if (direction === "asc") {
+            inputData = inputData.sort((a, b) => {
+                return (a[dimension] > b[dimension]) ? 1 : -1
+            })
+        } else {
+            inputData = inputData.sort((a, b) => {
+                return (a[dimension] < b[dimension]) ? 1 : -1
+            })
+        }
+    }
+    sortData(formattedData, props.sortBy.dimension, props.sortBy.direction)
+    sortData(weeklyAverages, props.sortBy.dimension === 'assignment' ? 'week' : props.sortBy.dimension, props.sortBy.direction)
 
     return (
         <ChartDisplay
