@@ -8,7 +8,6 @@ const Slicers = (props) => {
                 <label><input type="checkbox" checked={props.slicers.showDifficult} onChange={() => { props.toggleCategories('showDifficult') }} />Show 'Difficult'</label><br />
                 <label><input type="checkbox" checked={props.slicers.showFun} onChange={() => { props.toggleCategories('showFun') }} />Show 'Fun'</label>
             </div >
-
             <div className="slicer">
                 <h2>Filter by week</h2>
                 <label><input type="checkbox" checked={props.slicers.showWeeks.week1} onChange={() => { props.toggleWeeks("week1") }} />Week 1</label><br />
