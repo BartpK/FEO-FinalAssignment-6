@@ -3,7 +3,7 @@ import ChartDisplay from './ChartDisplay'
 
 
 const ChartContainer = (props) => {
-    const weekSelect = props.slicers.showWeeks
+    const weekSelect = props.showWeeks
 
 
     let filteredData;
@@ -20,7 +20,6 @@ const ChartContainer = (props) => {
     let assignmentList = [...new Set(filteredData.map(evaluation => {
         return evaluation.assignment
     }))]
-    // .sort()
 
     if (!weekSelect.week1) {
         assignmentList = assignmentList.filter(assignment => {
@@ -66,6 +65,16 @@ const ChartContainer = (props) => {
         return averageScore
     }
 
+
+
+    let formattedData = assignmentList.map(assignment => {
+        return {
+            assignment: assignment,
+            difficult: getAverageScoreByAssignment(assignment, 'difficult'),
+            fun: getAverageScoreByAssignment(assignment, 'fun')
+        }
+    })
+
     const getAverageScoreOfWeek = (query, category) => {
         const selectedEvaluations = filteredData.filter(evaluation => {
             return evaluation.assignment.includes(query)
@@ -77,14 +86,6 @@ const ChartContainer = (props) => {
         }) / selectedEvaluations.length
         return averageScore
     }
-
-    let formattedData = assignmentList.map(assignment => {
-        return {
-            assignment: assignment,
-            difficult: getAverageScoreByAssignment(assignment, 'difficult'),
-            fun: getAverageScoreByAssignment(assignment, 'fun')
-        }
-    })
 
     const checkForFilteredWeeks = (query) => {
         const assignmentsByWeek =
@@ -133,7 +134,6 @@ const ChartContainer = (props) => {
         })
     }
 
-
     const weeklyAverages = weeksArray.map(currentWeek => {
         return {
             week: currentWeek.week,
@@ -154,15 +154,16 @@ const ChartContainer = (props) => {
             })
         }
     }
-    sortData(formattedData, props.sortBy.dimension, props.sortBy.direction)
-    sortData(weeklyAverages, props.sortBy.dimension === 'assignment' ? 'week' : props.sortBy.dimension, props.sortBy.direction)
+    sortData(formattedData, props.dimension, props.direction)
+    sortData(weeklyAverages, props.dimension === 'assignment' ? 'week' : props.dimension, props.direction)
 
     return (
         <ChartDisplay
             formattedData={formattedData}
             weeklyAverages={weeklyAverages}
-            slicers={props.slicers}
-            params={props.match.params.StudentEvaluations} />
+            showDifficult={props.showDifficult}
+            showFun={props.showFun}
+            params={props.match.params} />
     )
 }
 

@@ -5,13 +5,13 @@ import animations from "../styling/animations"
 
 
 const ChartDisplay = (props) => {
-    const studentName = props.params;
+    const studentName = props.params.StudentEvaluation;
     const purple = "#a888df";
     const blue = "#00bcd6";
-    const difficultBarStyle = props.slicers.showDifficult ? { data: { fill: purple } } : { data: { fillOpacity: 0 } }
-    const funBarStyle = props.slicers.showFun ? { data: { fill: blue } } : { data: { fillOpacity: 0 } }
-    const difficultLineStyle = props.slicers.showDifficult ? { data: { stroke: purple } } : { data: { strokeOpacity: 0 } }
-    const funLineStyle = props.slicers.showFun ? { data: { stroke: blue } } : { data: { strokeOpacity: 0 } }
+    const difficultBarStyle = props.showDifficult ? { data: { fill: purple } } : { data: { fillOpacity: 0 } }
+    const funBarStyle = props.showFun ? { data: { fill: blue } } : { data: { fillOpacity: 0 } }
+    const difficultLineStyle = props.showDifficult ? { data: { stroke: purple } } : { data: { strokeOpacity: 0 } }
+    const funLineStyle = props.showFun ? { data: { stroke: blue } } : { data: { strokeOpacity: 0 } }
 
     return (
         <div>
@@ -87,7 +87,11 @@ const ChartDisplay = (props) => {
                     standalone={true}
                     domainPadding={{ x: 20 }}
                     containerComponent={
-                        <VictoryZoomContainer allowZoom={true} allowPan={true} zoomDomain={{ x: [1, 6] }} zoomDimension="x" />
+                        <VictoryZoomContainer
+                            allowZoom={true}
+                            allowPan={true}
+                            zoomDomain={{ x: [1, 6] }}
+                            zoomDimension="x" />
                     }
                 >
                     <VictoryLegend
