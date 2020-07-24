@@ -27,7 +27,6 @@ export const toggleLoading = () => {
 }
 
 export const toggleWeeks = (payload) => {
-    console.log(payload)
     return {
         type: 'TOGGLE_WEEKS',
         payload

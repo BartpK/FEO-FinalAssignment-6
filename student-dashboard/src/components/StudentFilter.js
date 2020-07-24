@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const StudentFilter = (props) => {
-
     const studentList = [...new Set(props.evaluations.map(evaluation => {
         return evaluation.student
     }))]

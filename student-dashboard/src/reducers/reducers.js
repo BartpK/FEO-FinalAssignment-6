@@ -33,7 +33,6 @@ const reducer = (state = defaultState, action) => {
                 sortBy: action.payload
             }
         case "TOGGLE_CATEGORY":
-            console.log(action.payload)
             return {
                 ...state,
                 slicers: {
