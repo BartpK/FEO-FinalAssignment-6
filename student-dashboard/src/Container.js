@@ -5,6 +5,8 @@ import StudentFilter from "./components/StudentFilter"
 import ChartContainer from './components/ChartContainer'
 import SortData from './components/SortData'
 import './App.css';
+import { loadData, sortData, toggleCategory, toggleLoading, toggleWeeks } from './actions/actions'
+import { connect } from 'react-redux'
 
 class Container extends React.Component {
   constructor() {
@@ -33,19 +35,25 @@ class Container extends React.Component {
   }
 
   loadData = () => {
+    console.log(this.props)
     const jsonData = require('./data/data.json');
+    ///redux code below
+    this.props.dispatch(loadData(jsonData))
+    /////
     this.setState({
       evaluations: jsonData.evaluations
     }, this.toggleLoading())
   }
 
   toggleCategories = (category) => {
+    console.log(category)
     this.setState({
       slicers: {
         ...this.state.slicers,
         [category]: !this.state.slicers[category]
       }
     })
+    this.props.dispatch(toggleCategory(category))
   }
 
   toggleWeeks = (week) => {
@@ -58,12 +66,14 @@ class Container extends React.Component {
         }
       }
     })
+    this.props.dispatch(toggleWeeks(week))
   }
 
   toggleLoading = () => {
     this.setState({
       isLoading: !this.state.isLoading
     })
+    this.props.dispatch(toggleLoading())
   }
 
   updateSortDirection = (dimension, direction) => {
@@ -73,6 +83,11 @@ class Container extends React.Component {
         direction: direction
       }
     })
+    const newSortObject = {
+      dimension: dimension,
+      direction: direction
+    }
+    this.props.dispatch(sortData(newSortObject))
   }
 
   componentDidMount() {
@@ -115,4 +130,17 @@ class Container extends React.Component {
   }
 }
 
-export default Container;
+const mapStateToProps = state => ({
+
+
+  evaluations: state.evaluations,
+  isLoading: state.isLoading,
+  dispatch: state.dispatch,
+  sortBy: state.sortBy,
+  slicers: state.slicers
+
+
+
+});
+
+export default connect(mapStateToProps)(Container)
