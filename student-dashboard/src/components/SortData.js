@@ -22,6 +22,8 @@ const SortData = (props) => {
             case "fundsc":
                 props.updateSortDirection('fun', 'dsc')
                 break;
+            default:
+                props.updateSortDirection('assignment', 'asc')
         }
     }
 
