@@ -87,7 +87,11 @@ const ChartDisplay = (props) => {
                     standalone={true}
                     domainPadding={{ x: 20 }}
                     containerComponent={
-                        <VictoryZoomContainer allowZoom={true} allowPan={true} zoomDomain={{ x: [1, 6] }} zoomDimension="x" />
+                        <VictoryZoomContainer
+                            allowZoom={true}
+                            allowPan={true}
+                            zoomDomain={{ x: [1, 6] }}
+                            zoomDimension="x" />
                     }
                 >
                     <VictoryLegend

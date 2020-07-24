@@ -5,25 +5,25 @@ const SortData = (props) => {
     const changeHandler = (e) => {
         switch (e.target.value) {
             case "assasc":
-                props.updateSortDirection('assignment', 'asc')
+                props.SortDirectionHandler('assignment', 'asc')
                 break;
             case "assdsc":
-                props.updateSortDirection('assignment', 'dsc')
+                props.SortDirectionHandler('assignment', 'dsc')
                 break;
             case "diffasc":
-                props.updateSortDirection('difficult', 'asc')
+                props.SortDirectionHandler('difficult', 'asc')
                 break;
             case "diffdsc":
-                props.updateSortDirection('difficult', 'dsc')
+                props.SortDirectionHandler('difficult', 'dsc')
                 break;
             case "funasc":
-                props.updateSortDirection('fun', 'asc')
+                props.SortDirectionHandler('fun', 'asc')
                 break;
             case "fundsc":
-                props.updateSortDirection('fun', 'dsc')
+                props.SortDirectionHandler('fun', 'dsc')
                 break;
             default:
-                props.updateSortDirection('assignment', 'asc')
+                props.SortDirectionHandler('assignment', 'asc')
         }
     }
 

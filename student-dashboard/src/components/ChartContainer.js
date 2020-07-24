@@ -134,7 +134,6 @@ const ChartContainer = (props) => {
         })
     }
 
-
     const weeklyAverages = weeksArray.map(currentWeek => {
         return {
             week: currentWeek.week,

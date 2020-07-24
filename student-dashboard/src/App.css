@@ -11,6 +11,11 @@ h1, h2, h5, p, a, li, label, option, select {
   font-family: 'Mulish', sans-serif;
 }
 
+.loading {
+  margin-top: 400px;
+  text-align: center;
+}
+
 h1 {
   font-weight: 300;
 }

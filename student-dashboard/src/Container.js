@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Slicers from './components/Slicers'
 import StudentFilter from "./components/StudentFilter"
@@ -8,97 +8,82 @@ import './App.css';
 import { loadData, sortData, toggleCategory, toggleLoading, toggleWeeks } from './actions/actions'
 import { connect } from 'react-redux'
 
-class Container extends React.Component {
-  constructor() {
-    super();
+const Container = (props) => {
 
-  }
+  useEffect(() => {
+    loadDataHandler();
+    toggleLoadingHandler();
+  }, [])
 
-  loadData = () => {
-
+  const loadDataHandler = () => {
     const jsonData = require('./data/data.json');
-    ///redux code below
-    this.props.dispatch(loadData(jsonData))
-    /////
-    this.toggleLoading()
-
+    props.dispatch(loadData(jsonData))
   }
 
-  toggleCategories = (category) => {
+  const toggleCategoriesHandler = (category) => {
 
-    this.props.dispatch(toggleCategory(category))
+    props.dispatch(toggleCategory(category))
   }
 
-  toggleWeeks = (week) => {
-    this.props.dispatch(toggleWeeks(week))
+  const toggleWeeksHandler = (week) => {
+    props.dispatch(toggleWeeks(week))
   }
 
-  toggleLoading = () => {
-    this.props.dispatch(toggleLoading())
+  const toggleLoadingHandler = () => {
+    props.dispatch(toggleLoading())
   }
 
-  updateSortDirection = (dimension, direction) => {
+  const SortDirectionHandler = (dimension, direction) => {
     const newSortObject = {
       dimension: dimension,
       direction: direction
     }
-    this.props.dispatch(sortData(newSortObject))
+    props.dispatch(sortData(newSortObject))
   }
 
-  componentDidMount() {
-    this.loadData();
-  }
+  if (props.isLoading) {
+    return (<h1 className="loading">Loading...</h1>)
+  } else {
+    return (
+      <Router>
+        <Route
+          path={["/:StudentEvaluations", "/"]}
+          render={(matchProps) => {
+            return (
+              <div className="maincontainer">
+                <div className="navcontainer">
+                  <SortData SortDirectionHandler={SortDirectionHandler} />
 
-  render() {
-    if (this.props.isLoading) {
-      return (<h1>Loading...</h1>)
-    } else {
-      return (
-        <Router>
-          <Route
-            path={["/:StudentEvaluations", "/"]}
-            render={(matchProps) => {
-              return (
-                <div className="maincontainer">
-                  <div className="navcontainer">
-                    <SortData updateSortDirection={this.updateSortDirection} />
-
-                    <StudentFilter
-                      {...this.props.evaluations}
-                      {...matchProps} />
-                    <Slicers
-                      slicers={this.props.slicers}
-                      toggleCategories={this.toggleCategories}
-                      toggleWeeks={this.toggleWeeks} />
-                  </div>
-                  <main>
-                    <ChartContainer
-                      {...this.props.evaluations}
-                      {...this.props.slicers}
-                      {...this.props.isLoading}
-                      {...this.props.sortBy}
-                      {...matchProps} />
-                  </main>
+                  <StudentFilter
+                    {...props.evaluations}
+                    {...matchProps} />
+                  <Slicers
+                    slicers={props.slicers}
+                    toggleCategoriesHandler={toggleCategoriesHandler}
+                    toggleWeeksHandler={toggleWeeksHandler} />
                 </div>
-              )
-            }} />
-        </Router>
-      )
-    }
+                <main>
+                  <ChartContainer
+                    {...props.evaluations}
+                    {...props.slicers}
+                    {...props.isLoading}
+                    {...props.sortBy}
+                    {...matchProps} />
+                </main>
+              </div>
+            )
+          }} />
+      </Router>
+    )
   }
 }
 
 const mapStateToProps = state => ({
-
-
   evaluations: state.evaluations,
   isLoading: state.isLoading,
   dispatch: state.dispatch,
   sortBy: state.sortBy,
   slicers: state.slicers
-
-
-
 });
 
 export default connect(mapStateToProps)(Container)
